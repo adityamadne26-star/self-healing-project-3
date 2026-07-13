@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitoring-app
+  namespace: monitoring
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: monitoring-app
+
+  template:
+    metadata:
+      labels:
+        app: monitoring-app
+
+    spec:
+      imagePullSecrets:
+      - name: ecr-secret
+
+      containers:
+      - name: monitoring-app
+        image: 651041284797.dkr.ecr.us-east-1.amazonaws.com/monitoring-project-123:v1
+        imagePullPolicy: Always
+
+        ports:
+        - containerPort: 5000
